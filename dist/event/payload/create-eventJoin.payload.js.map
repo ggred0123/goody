@@ -1,0 +1,1 @@
+{"version":3,"file":"create-eventJoin.payload.js","sourceRoot":"","sources":["../../../src/event/payload/create-eventJoin.payload.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,6CAAmE;AACnE,qDAAgF;AAIhF,MAAa,uBAAuB;CAOnC;AAPD,0DAOC;AADC;IALC,IAAA,uBAAK,GAAE;IACP,IAAA,qBAAW,EAAC;QACX,WAAW,EAAE,QAAQ;QACrB,IAAI,EAAE,MAAM;KACb,CAAC;;uDACc"}
