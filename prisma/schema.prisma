@@ -14,112 +14,64 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  cityId    Int?      @map("city_id")
-  name      String
-  email     String    @unique
-  password  String
-  birthday  DateTime?
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
-
-  event     Event[]
-  eventJoin EventJoin[]
-  review    Review[]
-
-  city City? @relation(fields: [cityId], references: [id])
-
-  @@map("user")
-}
-
-model Category {
   id        Int      @id @default(autoincrement())
   name      String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  event Event[]
-
-  @@map("category")
+  email     String   @unique
+  interests String[]
+  location  String
+  timezone  String
+  records   Record[]
+  friends   Friend[] @relation("UserFriends")
 }
 
-model Event {
+model Activity {
   id          Int      @id @default(autoincrement())
-  hostId      Int      @map("host_id")
-  categoryId  Int      @map("category_id")
-  cityId      Int      @map("city_id")
   title       String
   description String
-  maxPeople   Int      @map("max_people")
-  startTime   DateTime @map("start_time")
-  endTime     DateTime @map("end_time")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-
-  host     User     @relation(fields: [hostId], references: [id])
-  category Category @relation(fields: [categoryId], references: [id])
-  city     City     @relation(fields: [cityId], references: [id])
-
-  eventJoin EventJoin[]
-  review    Review[]
-
-  @@map("event")
+  location    String
+  timeZone    String
+  users       User[]   @relation("UserActivities")
 }
 
-model EventJoin {
+
+model ActivityJoin {
   id        Int      @id @default(autoincrement())
-  eventId   Int      @map("event_id")
+  activityId   Int      @map("event_id")
   userId    Int      @map("user_id")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  event Event @relation(fields: [eventId], references: [id])
+  activity Activity @relation(fields: [activityId], references: [id])
   user  User  @relation(fields: [userId], references: [id])
 
-  @@unique([eventId, userId])
-  @@map("event_join")
+  @@unique([activityId, userId])
 }
 
-model Review {
-  id          Int      @id @default(autoincrement())
-  eventId     Int      @map("event_id")
-  userId      Int      @map("user_id")
-  title       String
-  score       Int
-  description String?
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-
-  event Event @relation(fields: [eventId], references: [id])
-  user  User  @relation(fields: [userId], references: [id])
-
-  @@unique([eventId, userId])
-  @@map("review")
+model Record {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  activity   Activity @relation(fields: [activityId], references: [id])
+  activityId Int
+  notes      String?
+  isPublic   Boolean  @default(true)
+  timestamp  DateTime @default(now())
 }
 
-model Region {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  city City[]
-
-  @@map("region")
+model Friend {
+  id         Int    @id @default(autoincrement())
+  user       User   @relation("UserFriends", fields: [userId], references: [id])
+  userId     Int
+  friend     User   @relation("UserFriends", fields: [friendId], references: [id])
+  friendId   Int
+  status     String // 수락됨, 거절됨, 기다리는 중
 }
 
-model City {
-  id        Int      @id @default(autoincrement())
-  regionId  Int      @map("region_id")
-  name      String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  event Event[]
-  user  User[]
-
-  region Region @relation(fields: [regionId], references: [id])
-
-  @@map("city")
+model Notification {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  message    String
+  scheduleAt DateTime
+  isSent     Boolean  @default(false)
 }
