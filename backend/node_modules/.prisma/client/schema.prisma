@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "postgresql" // 실제 사용하는 데이터베이스에 맞게 변경하세요.
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  userId       Int     @id @map("user_id")
+  username     String
+  email        String  @unique
+  profileImage String? @map("profile_image")
+  password     String
+  refreshToken String? @map("refresh_token")
+
+  activities       Activity[]
+  userLocations    UserLocation[]
+  recommendations  Recommendation[]
+  recentActivities RecentActivity[]
+
+  @@map("user")
+}
+
+model Activity {
+  activityId  Int      @id @map("activity_id")
+  title       String
+  description String
+  location    String
+  imageUrl    String?  @map("image_url")
+  createdAt   DateTime @map("created_at")
+  userId      Int      @map("user_id")
+  user        User     @relation(fields: [userId], references: [userId])
+
+  activityKeywords ActivityKeyword[]
+  recentActivities RecentActivity[]
+
+  @@map("activity")
+}
+
+model Keyword {
+  keywordId   Int    @id @map("keyword_id")
+  keywordName String @map("keyword_name")
+
+  activityKeywords ActivityKeyword[]
+
+  @@map("keyword")
+}
+
+model ActivityKeyword {
+  activityId Int @map("activity_id")
+  keywordId  Int @map("keyword_id")
+
+  activity Activity @relation(fields: [activityId], references: [activityId])
+  keyword  Keyword  @relation(fields: [keywordId], references: [keywordId])
+
+  @@id([activityId, keywordId])
+  @@map("activity_keywords")
+}
+
+model ActivityLocation {
+  locationId Int    @id @map("location_id")
+  name       String
+  latitude   Float
+  longitude  Float
+
+  recommendations Recommendation[]
+
+  @@map("activity_location")
+}
+
+model UserLocation {
+  userLocationId Int   @id @map("user_location_id")
+  userId         Int   @map("user_id")
+  latitude       Float
+  longitude      Float
+
+  user            User             @relation(fields: [userId], references: [userId])
+  recommendations Recommendation[]
+
+  @@map("user_location")
+}
+
+model Recommendation {
+  recommendationId Int      @id @map("recommendation_id")
+  locationId       Int      @map("location_id")
+  userId           Int      @map("user_id")
+  userLocationId   Int      @map("user_location_id")
+  createdAt        DateTime @map("created_at")
+
+  location     ActivityLocation @relation(fields: [locationId], references: [locationId])
+  user         User             @relation(fields: [userId], references: [userId])
+  userLocation UserLocation     @relation(fields: [userLocationId], references: [userLocationId])
+
+  @@map("recommendations")
+}
+
+model RecentActivity {
+  recentActivityId Int      @id @map("recent_activity_id")
+  userId           Int      @map("user_id")
+  activityId       Int      @map("activity_id")
+  viewedAt         DateTime @map("viewed_at")
+  user             User     @relation(fields: [userId], references: [userId])
+  activity         Activity @relation(fields: [activityId], references: [activityId])
+
+  @@map("recent_activity")
+}
