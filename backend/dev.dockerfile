@@ -8,7 +8,7 @@ COPY package.json yarn.lock ./
 
 RUN yarn install
 
-COPY . .
+COPY .. .
 
 RUN yarn global add dotenv-cli
 RUN yarn prisma generate
