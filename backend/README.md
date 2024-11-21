@@ -1,94 +1,49 @@
-# 모임 관리 플랫폼 Eventory : Back-End 강의용 프로젝트 for Junior
-본 프로젝트는 GDG on Campus Korea University에서 진행되는 Junior 멤버 대상 BE 강의자료로 사용되는 프로젝트입니다.  
-매 주 강의에서 다룰 코드는 사전에 업데이트 될 예정이며, **모든 수강생은 본 레포지토리를 포크하거나, 별도의 레포지토리를 생성해주세요.**
+## Overview
 
-## 안내사항
-1. 본 레포지토리는 강의용 레포지토리입니다. 직접 PR이나 Issue를 생성하지 말아주세요.
-2. Issue와 PR에서 closed된 항목들을 확인해주세요. 본 레포지토리 코드에 대한 히스토리, 설명을 확인할 수 있습니다.
-3. 최종 과제는 5주차 수업에서 공개되며 세부사항은 Issue로 발행합니다.
-4. HW 코드는 5주차 수업 이후부터 6주차 수업 전까지 순차적으로 업로드 될 예정입니다.
+- **최근 Z세대 사이에서 ‘낭만’이라는 단어가 자주 사용되고 있습니다.** 이는 현실적인 문제나 스트레스에서 벗어나 감상적이고 이상적인 활동을 추구하는 태도를 뜻합니다.
+- 예를 들어, 가수 우즈(조승연)가 유행시킨 **‘굳이데이’ 문화는 ‘귀찮더라도 낭만적인 일을 찾아서 하는 날’을 의미합니다.** 조개구이가 먹고 싶을 땐 ‘굳이’ 인천까지 가서 먹고 오는 식이죠. 이 문화가 대중화되면서 **‘낭만을 찾으려면 귀찮음을 감수해야 한다’는 메시지에 공감하는 Z세대가 많아졌습니다.**
+- **그러나 바쁜 일상 속에서 낭만을 찾는 것은 많은 현대인들에게 우선순위에서 밀려나기 쉽습니다.** 본 프로젝트는 이러한 상황에서 낭만을 지속적으로 추구할 수 있도록 도와주는 앱을 제안합니다.
 
+## Details
 
-## Spec
+### Pain Points
 
-모임 관리 플랫폼 Eventory는 아래와 같은 기능을 포함합니다.      
-**아래의 Spec은 향후 변경될 가능성이 있습니다.**
+- 현대인들은 바쁜 생활과 스트레스 속에서 자신을 위한 활동이나 취미를 지속적으로 유지하기 어려워합니다. 특히 **Z세대는 낭만을 즐기고 싶어하지만, 일상에 치여 낭만을 찾기 위한 실천을 포기하는 경우가 많습니다.**
+- 이 앱은 사용자들이 일상 속에서도 낭만을 지속적으로 추구할 수 있도록 도와주는 맞춤형 추천과 기록 기능을 제공합니다.
 
-- 유저
-    - email, pw 기반으로 가입할 수 있습니다.
-    - 이름은 필수 입력 정보입니다.
-    - 거주 지역과 생년월일은 선택 입력 정보입니다.
-- 모임
-    - 유저는 모임을 생성할 수 있습니다. 해당 모임의 호스트가 됩니다.
-    - 모임에는 다른 유저들이 참여할 수 있습니다.
-    - 모임은 아래 정보를 포함합니다.
-        - 제목
-        - 내용
-        - 호스트
-        - 카테고리
-        - 지역
-        - 시작 시각
-        - 종료 시각
-        - 최대 정원 (정원에는 호스트도 포함합니다)
-    - 모임은 시작 전/진행 중/종료의 3단계의 상태를 가집니다.
-    - 모임의 수정/삭제는 시작 전까지만 호스트에 의해 가능합니다. 단, 참석자를 쫒아낼 수는 없습니다.
-    - 모임 시작 전까지만 참가, 탈퇴가 가능합니다.
-- 리뷰
-    - 모임이 끝나면 참여자들은 리뷰를 작성할 수 있습니다.
-    - 리뷰는 유저 당 하나만 남길 수 있습니다.
-    - 리뷰는 아래의 정보를 포함합니다.
-        - 제목
-        - 내용 (선택)
-        - 평점 (1~5 사이의 정수)
-    - 리뷰의 수정/삭제는 작성자만 할 수 있습니다.
-- 지역
-    - 지역은 특별시/광역시/도 - 시/군/구의 2단계로 구성됩니다.
-- 카테고리
-    - 카테고리는 총 30가지이며, 유저가 별도로 추가/수정/삭제할 수 없습니다.
+### Targets
 
-## API List
-수업 및 과제에서 구현할 API List입니다.
-각 API에 대한 상세한 Spec은 해당 주차에 Issue로 발행할 예정입니다.  
-링크를 통해 해당 Issue로 이동할 수 있습니다.
+본 프로젝트는 **일상에 치여 낭만을 찾기 어려워하는 20-30대 Z세대 사용자들을 주 타겟으로 합니다.** 특히 낭만적인 활동을 즐기고 싶지만 바쁜 일정과 과제 등으로 실천이 어려운 대학생, 직장인을 대상으로 합니다. 이들은 새로운 취미나 활동을 찾고, 나만의 낭만을 만들고 싶어 하지만, 귀찮음을 이유로 포기하거나, 일상 속에서 우선순위를 잃어버리곤 합니다. **본 프로젝트는 이들이 낭만적인 활동을 지속할 수 있도록 지원하고 동기를 부여하는 것을 목표로 합니다.**
 
-- Auth 
-    - POST /sign-up **(Week5)**
-    - POST /login **(Week5)**
-    - POST /refresh **(Week5)**
-- User
-    - GET /me **(Week5-HW)**
-    - GET /:userId **(Week5-HW)** 
-    - DELETE /:userId [**(Week3)**](https://github.com/worjs/nest-study-eventory/issues/32)
-- Event
-    - GET / [**(Week2-HW)**](https://github.com/worjs/nest-study-eventory/issues/17)
-    - GET /me **(Week5-HW)**
-    - GET /:eventId [**(Week2-HW)**](https://github.com/worjs/nest-study-eventory/issues/16)
-    - POST / [**(Week2-HW)**](https://github.com/worjs/nest-study-eventory/issues/14)
-    - PUT or PATCH /:eventId [**(Week3-HW)**](https://github.com/worjs/nest-study-eventory/issues/33)
-    - DELETE /:eventId [**(Week3-HW)**](https://github.com/worjs/nest-study-eventory/issues/34)
-    - POST /:eventId/join [**(Week2-HW)**](https://github.com/worjs/nest-study-eventory/issues/18)
-    - POST /:eventId/out [**(Week2-HW)**](https://github.com/worjs/nest-study-eventory/issues/19)
-    - **(필수)** User Soft Delete에 따른 Repository 구현 변경 [**(Week3-HW)**](https://github.com/worjs/nest-study-eventory/issues/36)
-- Review
-    - GET / [**(Week2)**](https://github.com/worjs/nest-study-eventory/issues/12)
-    - GET /:reviewId [**(Week2)**](https://github.com/worjs/nest-study-eventory/issues/11)
-    - POST / [**(Week2)**](https://github.com/worjs/nest-study-eventory/issues/10)
-    - PUT /:reviewId [**(Week3)**](https://github.com/worjs/nest-study-eventory/issues/28)
-    - PATCH /:reviewId [**(Week3)**](https://github.com/worjs/nest-study-eventory/issues/29)
-    - DELETE /:reviewId [**(Week3)**](https://github.com/worjs/nest-study-eventory/issues/30)
-- Region 
-    - GET / [**(Week1)**](https://github.com/worjs/nest-study-eventory/issues/6)
-      [**(Week2-HW)**](https://github.com/worjs/nest-study-eventory/issues/9)
-- Category 
-    - GET / [**(Week1-HW)**](https://github.com/worjs/nest-study-eventory/issues/7)
+### Core Features
 
-## 추가 Exercise
-아래는 과제 외로 추가로 구현할만한 과제들입니다. 실제 요구사항이 주어져 코드를 변경해야 하는 상황을 가정합니다.
-- [**모임 생성, 수정, 상세조회 시 더 자세한 정보를 리턴하도록 변경**](https://github.com/worjs/nest-study-eventory/issues/15)
+1. **낭만 활동 맞춤형 추천**
+    
+    사용자의 관심사, 위치, 시간대를 기반으로 낭만적인 활동을 맞춤형으로 추천합니다. 예를 들어, 가까운 공원에서의 산책, 예술 전시 관람, 별자리 관측 등 사용자에게 맞는 낭만적 활동을 제안합니다.
+    
+2. **낭만 기록 및 공유 기능**
+    
+    사용자가 수행한 낭만적 활동을 기록하고, 이를 바탕으로 자신만의 낭만적인 라이프 스타일을 시각적으로 확인할 수 있습니다. 또한 다른 사용자가 어떤 낭만을 즐겼는지 볼 수 있어 영감을 얻을 수 있습니다.
+    
+3. **친구와의 낭만 연동 기능**
+    
+    친구와 낭만 활동 계획을 공유하고 함께 실천할 수 있도록 연동 기능을 제공합니다. 친구가 한 활동을 확인하고, 공동으로 새로운 낭만적 활동을 계획할 수 있습니다. 서로의 기록을 공유하고 함께 낭만 챌린지에 참여하여 더 의미 있는 시간을 보낼 수 있습니다.
+    
+4. **낭만 실천 알림 기능**
+    
+    바쁜 일정 속에서도 낭만을 후순위로 미루지 않도록 미리 알림을 설정하여 사용자에게 낭만적 활동을 독려합니다.
+    
 
+### Additional Features
 
-## DB Schema
-아래는 Week3 기준 DB 스키마입니다. 역시 변경 가능성이 있습니다.
-![image](https://github.com/user-attachments/assets/32b8ca39-7759-4a2e-be13-0c50dfcaea5f)
-
-
+1. **낭만 지도**
+    
+    사용자 주변의 낭만적 장소를 지도에서 확인하고, 나만의 낭만 루트를 만들 수 있는 기능을 제공합니다.
+    
+2. **낭만 챌린지**
+    
+    다양한 낭만 챌린지를 제공하여, 사용자가 일상에서 쉽게 실천할 수 있는 낭만적인 미션을 수행할 수 있도록 유도합니다.
+    
+3. **낭만 AI 코치**
+    
+    사용자의 감정 상태나 현재 활동에 따라 적절한 낭만적 활동을 제안하고, 피드백을 제공하는 AI 코치 기능을 추가하여 사용자 경험을 향상시킵니다.
